@@ -1,0 +1,12 @@
+<div class="description">
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+          <div>
+            Add Description
+          </div>
+          <label for="inputPassword2" class="sr-only">Add Item</label>
+          <input type="textarea" #item class="form-control" id="inputPassword2" placeholder="Item">
+        </div>
+        <button type="button" (click)="addItem(item.value)" class="btn btn-warning">Add Item</button>
+      </form>
+</div>
