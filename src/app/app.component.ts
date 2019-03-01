@@ -1,4 +1,5 @@
 import { Component , OnInit, OnChanges } from '@angular/core';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,18 @@ import { Component , OnInit, OnChanges } from '@angular/core';
 export class AppComponent  implements OnInit {
   title = 'angular-lifecycle-hooks';
 
+  constructor(private appService: AppService) {}
+
   itemList: string[] = [];
   showDesc = false;
 
-  addItemList(itemList: string[]) {
-    this.itemList = itemList;
+  addItemList(item: any) {
+    this.appService.addItems(item);
+  }
+
+  deleteItem(item: any) {
+    console.log(item);
+    this.itemList = this.itemList.filter((itm: any) => itm.id !== item.id);
   }
 
   enableDescription(event) {
@@ -20,8 +28,11 @@ export class AppComponent  implements OnInit {
   }
 
   ngOnInit() {
-    console.log('--app-root--ngOnInit()----');
-  }
 
+    this.appService.items.subscribe((data: any) => {
+      this.itemList.push(data);
+      console.log(this.itemList.length);
+    });
+  }
 
 }

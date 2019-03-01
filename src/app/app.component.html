@@ -1,13 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-header></app-header>
 <app-add-item 
-  (itemListOut)="addItemList($event)">
+  (itemOut)="addItemList($event)">
 </app-add-item>
 <app-display-list
   (showDescription)="enableDescription($event)"
-  [itemList]="itemList">
+  [itemList]="itemList"
+  (deleteOut)="deleteItem($event)"
+  >
 </app-display-list>
-<app-description 
-  *ngIf="showDescription">
-</app-description>
+<app-error *ngIf="itemList.length ==0">
+    <app-error-message></app-error-message>
+</app-error>
 <app-footer></app-footer>

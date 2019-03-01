@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, Output, EventEmitter } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-display-list',
@@ -7,10 +8,11 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, Output, Ev
 })
 export class DisplayListComponent implements OnInit, OnChanges, DoCheck {
 
-  constructor() { }
+  constructor(private bsModalRef: BsModalRef) { }
 
-  @Input() itemList: string[];
+  @Input() itemList: any[];
   @Output() showDescription = new EventEmitter<boolean>();
+  @Output() deleteOut = new EventEmitter();
   items: string[];
 
   ngOnChanges(changes: SimpleChanges) {
@@ -18,14 +20,27 @@ export class DisplayListComponent implements OnInit, OnChanges, DoCheck {
     console.log('previous values', changes.itemList.previousValue);
     console.log('current values', changes.itemList.currentValue);
     const itemList = changes.itemList.currentValue;
-    this.items = itemList.map((item, index) => `Item: ${index + 1}  ${item}`);
+    if (undefined !== itemList) {
+      this.items = itemList.map((item) => {
+        item.value = `Item: ${item.id}  Name:${item.name} Description: ${item.description}`;
+        return item;
+      });
+    }
   }
 
   ngDoCheck() {
      if (this.items !== this.itemList) {
-      this.items = this.itemList.map((item, index) => `Item: ${index + 1}  ${item}`);
+      this.items = this.itemList.map((item) => {
+        item.value = `Item: ${item.id}  Name:${item.name} Description: ${item.description}`;
+        return item;
+      });
      }
      console.log('ngDoCheck', this.itemList);
+  }
+
+  deleteItem(event) {
+    console.log(event);
+    this.deleteOut.emit(event);
   }
 
   addDescription() {
@@ -35,6 +50,9 @@ export class DisplayListComponent implements OnInit, OnChanges, DoCheck {
   ngOnInit() {
     console.log('--app-display-list--ngOnInit()----');
     console.log(this.itemList);
+  }
+
+  openModal() {
   }
 
 }

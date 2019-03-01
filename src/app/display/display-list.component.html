@@ -1,0 +1,9 @@
+ <div class="container" *ngFor="let item of items; let odd=odd; let even=even;">
+    <app-display-card 
+      [item]="item" 
+      [odd]="odd" 
+      [even]="even"
+      (deleteOut)="deleteItem($event)"
+      >
+    </app-display-card>
+ </div>
