@@ -1,4 +1,7 @@
 <div class="addinput">
+<app-error *ngIf="showError">
+    <app-error-message message="Please Enter item and description" [numberOfAttempts]="numberOfAttempts"></app-error-message>
+</app-error>
 <form class="formbox" [formGroup]="itemForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <div class="row">
@@ -19,7 +22,7 @@
         <input type="text" formControlName="description" class="form-control" id="description" placeholder="Description" required>
       </div>
   </div>
-  <button type="submit" [disabled]="!itemForm.valid" class="btn btn-warning">Add Item</button>
+  <button type="submit" class="btn btn-warning">Add Item</button>
   </div>
 </form>
 </div>

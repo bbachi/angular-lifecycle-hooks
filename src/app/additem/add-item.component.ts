@@ -8,24 +8,36 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class AddItemComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    console.log('I am from AddItemComponent constructor()!!');
+  }
 
   itemForm = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
   });
 
+  showError = false;
+  numberOfAttempts = 0;
+
   itemList: string[] = ['sample project', 'todo list'];
   @Output() itemOut = new EventEmitter();
 
   onSubmit() {
     console.warn(this.itemForm.value);
-    this.itemOut.emit(this.itemForm.value);
-    this.itemForm.reset();
+    if (this.itemForm.valid) {
+      this.showError = false;
+      this.itemOut.emit(this.itemForm.value);
+      this.itemForm.reset();
+      this.numberOfAttempts = 0;
+    } else {
+      this.numberOfAttempts++;
+      this.showError = true;
+    }
   }
 
   ngOnInit() {
-    console.log('--app-add-item--ngOnInit()----');
+    // console.log('--app-add-item--ngOnInit()----');
   }
 
 }

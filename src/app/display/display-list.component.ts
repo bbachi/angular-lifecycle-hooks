@@ -1,5 +1,15 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, Output, EventEmitter } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import {
+  Component,
+  OnInit,
+  Input, OnChanges,
+  SimpleChanges,
+  DoCheck,
+  Output,
+  EventEmitter,
+  ViewChild,
+  AfterViewInit,
+  AfterViewChecked } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-display-list',
@@ -8,17 +18,23 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class DisplayListComponent implements OnInit, OnChanges, DoCheck {
 
-  constructor(private bsModalRef: BsModalRef) { }
+  constructor() {
+    console.log('I am from DisplayListComponent constructor()!!');
+  }
 
   @Input() itemList: any[];
   @Output() showDescription = new EventEmitter<boolean>();
   @Output() deleteOut = new EventEmitter();
   items: string[];
 
+  modalText = 'Item and Description!!!';
+
+  @ViewChild('editModal') editModal: ModalDirective;
+
   ngOnChanges(changes: SimpleChanges) {
-    console.log('--app-display-list--ngOnChanges()----');
-    console.log('previous values', changes.itemList.previousValue);
-    console.log('current values', changes.itemList.currentValue);
+    // console.log('--app-display-list--ngOnChanges()----');
+    // console.log('previous values', changes.itemList.previousValue);
+    // console.log('current values', changes.itemList.currentValue);
     const itemList = changes.itemList.currentValue;
     if (undefined !== itemList) {
       this.items = itemList.map((item) => {
@@ -35,7 +51,7 @@ export class DisplayListComponent implements OnInit, OnChanges, DoCheck {
         return item;
       });
      }
-     console.log('ngDoCheck', this.itemList);
+     // console.log('ngDoCheck', this.itemList);
   }
 
   deleteItem(event) {
@@ -48,8 +64,17 @@ export class DisplayListComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnInit() {
-    console.log('--app-display-list--ngOnInit()----');
-    console.log(this.itemList);
+    // console.log('--app-display-list--ngOnInit()----');
+    // console.log(this.itemList);
+  }
+
+  editItem(item: any) {
+    // console.log(item);
+    this.editModal.show();
+  }
+
+  closeModal() {
+    this.editModal.hide();
   }
 
   openModal() {

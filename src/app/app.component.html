@@ -1,5 +1,7 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<app-header></app-header>
+<app-header
+  (toggleFooterEvt)="toggleFooter($event)"
+  >
+</app-header>
 <app-add-item 
   (itemOut)="addItemList($event)">
 </app-add-item>
@@ -10,6 +12,6 @@
   >
 </app-display-list>
 <app-error *ngIf="itemList.length ==0">
-    <app-error-message></app-error-message>
+    <app-error-message message="There are no items in the list"></app-error-message>
 </app-error>
-<app-footer></app-footer>
+<app-footer #footer footerText="This is footer" [numberOfItems]="numberOfItems"  *ngIf="showFooter"></app-footer>

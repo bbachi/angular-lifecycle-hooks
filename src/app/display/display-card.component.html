@@ -3,30 +3,9 @@
     <div class="card-body" [ngClass]="{ 'bg-info': odd, 'bg-secondary': even }">
         <div class="row">
           <div class="col-md-10">{{item.value}}</div>
-          <div class="col-md-1"><button type="button" class="btn btn-warning" (click)="showEditModal()">Edit</button></div>
+          <div class="col-md-1"><button type="button" class="btn btn-warning" (click)="editItem(item)">Edit</button></div>
           <div class="col-md-1"><button (click)="delectedItem(item)" type="button" class="btn btn-danger">Delete</button></div>
         </div>
     </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div bsModal #editModal="bs-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" (click)="closeModal()" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="closeModal()" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
   </div>
 </div>
